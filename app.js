@@ -1,0 +1,9 @@
+document.addEventListener('DOMContentLoaded',()=>{
+ const btn=document.getElementById('menuBtn'), menu=document.getElementById('mobileMenu');
+ if(btn&&menu) btn.addEventListener('click',()=>{menu.classList.toggle('hidden');btn.setAttribute('aria-expanded',String(!menu.classList.contains('hidden')))});
+ const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('is-visible')}),{threshold:.08});
+ document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+ const top=document.getElementById('backTop'); if(top){window.addEventListener('scroll',()=>top.classList.toggle('hidden',window.scrollY<500));top.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));}
+ document.querySelectorAll('.filter-btn').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.filter-btn').forEach(b=>{b.classList.remove('bg-teal','text-white');b.classList.add('border','border-line','bg-white','text-ink/70')});btn.classList.add('bg-teal','text-white');btn.classList.remove('border','border-line','bg-white','text-ink/70');const f=btn.dataset.filter;document.querySelectorAll('.resource-card').forEach(card=>card.classList.toggle('hidden',f!=='all'&&card.dataset.category!==f));}));
+ const form=document.getElementById('contactForm'), msg=document.getElementById('formMessage'); if(form&&msg) form.addEventListener('submit',e=>{e.preventDefault();msg.textContent='Merci pour votre message. Cette démo est prête à être reliée à votre messagerie ou à votre outil de formulaire.';msg.classList.remove('hidden');form.reset();});
+});
